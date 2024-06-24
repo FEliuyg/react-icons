@@ -1,0 +1,83 @@
+{
+  "name": "@xiaoyaoliu/react-icons",
+  "version": "1.1.0",
+  "description": "Icon automation workflow with Figma",
+  "type": "module",
+  "module": "dist/index.esm.js",
+  "main": "dist/index.js",
+  "types": "dist/icons.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "xiaoyao",
+  "keywords": [
+    "react",
+    "icons",
+    "svg",
+    "inline",
+    "figma",
+    "design"
+  ],
+  "scripts": {
+    "fetch": "rm -rf src/svg && tsx bin/fetchSVG.ts",
+    "generate": "rm -rf src/react-icons && tsx bin/build.js",
+    "build:bundle": "rm -rf dist && node_modules/.bin/rollup --c ./build/rollup.config.bundle.js",
+    "dev": "rollup -w -c ./build/rollup.config.dev.js",
+    "build": "rollup -c ./build/rollup.config.prod.js",
+    "send-message": "tsx bin/dingtalk.ts",
+    "publish-docs": "node bin/uploadOSS.js",
+    "push": "npm run generate && npm run build:bundle && npm publish",
+    "prepublishOnly": "npm run build:bundle",
+    "postpublish": "sync-to-mirror"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "classnames": "^2.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@easyv/sync-to-mirror": "0.0.2",
+    "@rollup/plugin-babel": "^5.1.0",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@rollup/plugin-replace": "^2.3.3",
+    "@svgr/core": "^8.1.0",
+    "@types/ali-oss": "^6.16.11",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "ali-oss": "^6.20.0",
+    "cheerio": "^1.0.0-rc.12",
+    "concurrently": "^4.1.1",
+    "dotenv": "^16.4.5",
+    "figma-js": "^1.16.0",
+    "fs-extra": "^11.2.0",
+    "got": "^11.5.1",
+    "normalize.css": "^8.0.1",
+    "p-queue": "^8.0.1",
+    "prettier": "^3.3.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-toastify": "^8.1.0",
+    "rollup": "^1.19.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-postcss": "^3.1.3",
+    "rollup-plugin-serve": "^1.0.3",
+    "rollup-plugin-uglify": "^6.0.4",
+    "styled-components": "^5.1.1",
+    "svgo": "^3.3.2",
+    "tslib": "^2.6.3",
+    "tsx": "^4.15.5",
+    "typescript": "^5.4.5"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}

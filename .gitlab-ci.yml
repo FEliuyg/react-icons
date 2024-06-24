@@ -1,0 +1,30 @@
+default:
+  cache:
+    paths:
+      - node_modules
+
+publish-job:
+  stage: deploy
+  only:
+    refs:
+      - master
+    changes:
+      - src/svg/*
+  before_script:
+    - sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories && apk --no-cache add git
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+  script:
+    - npm config set registry https://registry.npmmirror.com
+    - npm install
+    - npm run generate
+    - git add .
+    - git commit -m "[gitlab]:generate react-icons"
+    - git push http://gitlab-ci-token:$ACCESS_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git HEAD:master
+    - npm config set registry https://registry.npmjs.org
+    - npm run build:bundle && npm publish
+    - npm run build && npm run publish-docs
+    - npm run send-message
+  tags:
+    - icons
