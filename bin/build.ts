@@ -1,11 +1,11 @@
 import fsExtra from 'fs-extra';
 import path from 'path';
-import prettier  from 'prettier';
-import { transform } from '@svgr/core'
+import prettier from 'prettier';
 import icons from '../cache.json';
 import processSvg from './processSvg';
 import { getAttrs, getElementCode, initialContextCode, initialTypeDefinitions } from './template';
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const rootDir = path.join(__dirname, '..');
 const srcDir = path.join(rootDir, 'src');
 const svgsDir = path.join(rootDir, 'src/svg');
@@ -18,13 +18,13 @@ const generateIconsIndex = () => {
 };
 
 // generate attributes code
-function attrsToString (attrs: Record<string, string>) {
+function attrsToString(attrs: Record<string, string>) {
   return Object.keys(attrs)
     .map((key) => {
       return key + '="' + attrs[key] + '"';
     })
     .join(' ');
-};
+}
 
 function getIconType(componentName: string) {
   let type = 'outlined';
@@ -34,7 +34,7 @@ function getIconType(componentName: string) {
     type = 'colored';
   }
 
-  return type
+  return type;
 }
 
 // generate icon code separately
@@ -43,7 +43,7 @@ const generateIconCode = async (componentName: string) => {
 
   const code = fsExtra.readFileSync(path.join(svgsDir, `${componentName}.svg`)).toString();
   const svgCode = processSvg(code, iconType);
-  if(!svgCode) {
+  if (!svgCode) {
     return;
   }
 
@@ -51,10 +51,9 @@ const generateIconCode = async (componentName: string) => {
   const component = await prettier.format(element, {
     bracketSpacing: true,
     singleQuote: true,
-    parser: 'babel'
+    parser: 'babel',
   });
 
-  fsExtra.ensureDir(iconsDir);
   fsExtra.writeFileSync(path.join(iconsDir, `${componentName}.js`), component, 'utf-8');
 
   console.log('Successfully built', componentName);
@@ -73,6 +72,7 @@ const appendToIconsIndex = ({ componentName }) => {
 // first: generate icons.js and icons.d.ts file
 generateIconsIndex();
 
+fsExtra.ensureDir(iconsDir);
 // second: generate icon code separately
 Object.values(icons).forEach(async ({ componentName }) => {
   await generateIconCode(componentName);

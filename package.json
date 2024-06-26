@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "fetch": "rm -rf src/svg && tsx bin/fetchSVG.ts",
-    "generate": "rm -rf src/react-icons && tsx bin/build.js",
+    "generate": "rm -rf src/react-icons && tsx bin/build.ts",
     "build:bundle": "rm -rf dist && node_modules/.bin/rollup --c ./build/rollup.config.bundle.js",
     "dev": "rollup -w -c ./build/rollup.config.dev.js",
     "build": "rollup -c ./build/rollup.config.prod.js",

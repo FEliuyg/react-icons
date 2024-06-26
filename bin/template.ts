@@ -15,7 +15,7 @@ export const getElementCode = (componentName: string, attrs: string, svgCode: st
   import classnames from 'classnames';
   import { useConfig } from '../context';
 
-  export default function ${componentName}(props) => {
+  export default function ${componentName} (props) {
     const { color, size, className, style = {}, ...otherProps } = props;
     const config = useConfig();
     const { cls } = config || {}
@@ -30,25 +30,23 @@ export const getElementCode = (componentName: string, attrs: string, svgCode: st
   };
 `;
 
-export const initialTypeDefinitions = `
-    import { ComponentType, SVGAttributes, ReactNode } from 'react';
+export const initialTypeDefinitions = `import { ComponentType, SVGAttributes, ReactNode } from 'react';
 
-    interface ConfigProviderProps {
-      cls?: string;
-      children: ReactNode;
-    }
+interface ConfigProviderProps {
+  cls?: string;
+  children: ReactNode;
+}
 
-    export const ConfigProvider: ComponentType<ConfigProviderProps>;
+export const ConfigProvider: ComponentType<ConfigProviderProps>;
 
-    interface Props extends SVGAttributes<SVGElement> {
-      color?: string;
-      size?: string | number;
-    }
+interface Props extends SVGAttributes<SVGElement> {
+  color?: string;
+  size?: string | number;
+}
 
-    type Icon = ComponentType<Props>;
-  `;
+type Icon = ComponentType<Props>;
+`;
 
-export const initialContextCode = `
-    import './index.css';
-    export * from './context.js';
-  `;
+export const initialContextCode = `import './index.css';
+export * from './context.js';
+`;
