@@ -1,7 +1,8 @@
-process.env.NODE_ENV = 'production';
 
-const { uglify } = require('rollup-plugin-uglify');
-const configList = require('./rollup.config');
+import { uglify } from 'rollup-plugin-uglify'
+import configList from './rollup.config.js'
+
+process.env.NODE_ENV = 'production';
 
 configList.map((config) => {
   config.output.sourcemap = false;
@@ -10,4 +11,4 @@ configList.map((config) => {
   return config;
 });
 
-module.exports = configList;
+export default configList;

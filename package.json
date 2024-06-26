@@ -25,7 +25,7 @@
     "dev": "rollup -w -c ./build/rollup.config.dev.js",
     "build": "rollup -c ./build/rollup.config.prod.js",
     "send-message": "tsx bin/dingtalk.ts",
-    "publish-docs": "node bin/uploadOSS.js",
+    "publish-docs": "tsx bin/uploadOSS.ts",
     "push": "npm run generate && npm run build:bundle && npm publish",
     "prepublishOnly": "npm run build:bundle",
     "postpublish": "sync-to-mirror"
