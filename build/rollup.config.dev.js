@@ -1,12 +1,14 @@
-process.env.NODE_ENV = 'development';
+import path from 'node:path';
+import serve from 'rollup-plugin-serve';
+import configList from './rollup.config.js';
 
-const path = require('path');
-const serve = require('rollup-plugin-serve');
-const configList = require('./rollup.config');
+process.env.NODE_ENV = 'development';
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const resolveFile = function(filePath) {
   return path.join(__dirname, '..', filePath)
 }
+
 const PORT = 3000;
 
 const devSite = `http://127.0.0.1:${PORT}`;
@@ -39,4 +41,4 @@ configList.map((config, index) => {
 })
 
 
-module.exports = configList;
+export default configList;

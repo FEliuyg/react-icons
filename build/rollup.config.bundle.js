@@ -1,5 +1,5 @@
+import path from 'node:path';
 import babel from '@rollup/plugin-babel';
-import path from 'path';
 import copy from 'rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
 
